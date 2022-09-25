@@ -18,14 +18,14 @@ def IsFileOpen():
         return False
 
 
-def createlog(name="py-logging", ext=".log"):
+def createlog(name="py-logging.log"):
     gettime()
     error = "File already exists."
     try:
-        f = open(name + ext, 'r')
+        f = open(name, 'r')
         f.close()
     except FileNotFoundError:
-        a = open(name + ext, 'x')
+        a = open(name, 'x')
         a.write(LogTime + "START OF LOGS")
         a.close()
         error = "File created."
@@ -40,6 +40,7 @@ def createlog(name="py-logging", ext=".log"):
 
 def openLog(filename="py-logging.log"):
     global logf
+    gettime()
 
     try:
         logf.close()
@@ -48,15 +49,18 @@ def openLog(filename="py-logging.log"):
 
     try:
         logf = open(filename, "w")  # try to open file
+        logf.write(LogTime + "===LOGS OPENED===\n")
     except FileNotFoundError:
-        createlog()  # create the file
-        openLog("py-logging.log")  # open the file by recalling this
+        createlog(filename)  # create the file
+        openLog(filename)  # open the file by recalling this
 
 
 def closeLog():
     global logf
+    gettime()
 
     try:
+        logf.write(LogTime + "===LOGS CLOSED===")
         logf.close()
         logf = ''
     except AttributeError:
@@ -67,24 +71,9 @@ def logline(str):
     if not logf:
         return print("No log opened: openLog")
     gettime()
-    logf.write("\n")
     logf.write(LogTime + str)
+    logf.write("\n")
     return
 
 
 os.system("cls")
-
-openLog()
-
-logline("This is a test1")
-logline("This is a test2")
-logline("This is a test3")
-logline("This is a test4")
-
-closeLog()
-
-logline("This is a test3")
-
-openLog()
-
-logline("This is a test69")
