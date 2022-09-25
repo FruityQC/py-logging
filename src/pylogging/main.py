@@ -1,4 +1,3 @@
-from cmath import log
 import os
 import time
 
@@ -39,29 +38,53 @@ def createlog(name="py-logging", ext=".log"):
 #     except:
 #         return print("Error, check file path.")
 
-def openfile(filename="py-logging.log"):
+def openLog(filename="py-logging.log"):
+    global logf
+
     try:
-        global logf
-        logf = open(filename, "w")
+        logf.close()
+    except AttributeError:  # try to close old file
+        print('')
+
+    try:
+        logf = open(filename, "w")  # try to open file
     except FileNotFoundError:
-        createlog()
-        openfile("py-logging.log")
+        createlog()  # create the file
+        openLog("py-logging.log")  # open the file by recalling this
 
 
-def logline(logfile, str):
+def closeLog():
+    global logf
+
+    try:
+        logf.close()
+        logf = ''
+    except AttributeError:
+        return "Log Closed."
+
+
+def logline(str):
+    if not logf:
+        return print("No log opened: openLog")
     gettime()
-    #logf = open(logfile, "w")
     logf.write("\n")
     logf.write(LogTime + str)
-    # logf.close()
     return
 
 
 os.system("cls")
 
-openfile()
+openLog()
 
-logline("py-logging.log", "This is a test1")
-logline("py-logging.log", "This is a test2")
-logline("py-logging.log", "This is a test3")
-logline("py-logging.log", "This is a test4")
+logline("This is a test1")
+logline("This is a test2")
+logline("This is a test3")
+logline("This is a test4")
+
+closeLog()
+
+logline("This is a test3")
+
+openLog()
+
+logline("This is a test69")
