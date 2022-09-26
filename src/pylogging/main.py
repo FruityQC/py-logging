@@ -67,11 +67,11 @@ def closeLog():
         return "Log Closed."
 
 
-def logline(str):
+def logline(text):
     if not logf:
         return print("No log opened: openLog")
     gettime()
-    logf.write(LogTime + str)
+    logf.write(LogTime + str(text))
     logf.write("\n")
     return
 

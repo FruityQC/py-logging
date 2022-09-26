@@ -1,5 +1,11 @@
+import random
+import time
 import main as pylog
 
-pylog.openLog("yomama.log")
-pylog.logline("Does it work ?")
-pylog.closeLog()
+
+pylog.openLog()
+while True:
+    num = 0
+    time.sleep(.1)
+    pylog.logline(num)
+    num = num + 1
