@@ -1,2 +1,4 @@
 dist/
 tests/
+src/pylogging/test.py
+py-logging.log
