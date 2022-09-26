@@ -4,6 +4,14 @@ import time
 LogTime = ''
 logf = ''
 
+DiscordEnable = False
+DiscordWebhook = ''
+
+
+def SetWebhook(URL: str, enabled: bool):
+
+    return
+
 
 def gettime():
     currenttime = time.ctime()
@@ -32,12 +40,6 @@ def createlog(name="py-logging.log"):
     return print(error)
 
 
-# def deletelog(filef="py-logging.log"):
-#     try:
-#         os.remove(filef)
-#     except:
-#         return print("Error, check file path.")
-
 def openLog(filename="py-logging.log"):
     global logf
     gettime()
@@ -45,7 +47,7 @@ def openLog(filename="py-logging.log"):
     try:
         logf.close()
     except AttributeError:  # try to close old file
-        print('')
+        return
 
     try:
         logf = open(filename, "w")  # try to open file
@@ -64,7 +66,7 @@ def closeLog():
         logf.close()
         logf = ''
     except AttributeError:
-        return "Log Closed."
+        return
 
 
 def logline(text):
